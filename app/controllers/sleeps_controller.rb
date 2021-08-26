@@ -13,11 +13,13 @@ class SleepsController < ApplicationController
   end
 
   def index
-    @sleeps = Sleep.all
+    @sleeps = Sleep.page(params[:page]).reverse_order
+    
   end
 
   def show
     @sleep = Sleep.find(params[:id])
+    @post_comment = PostComment.new
     
   end
 

@@ -1,2 +1,23 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="profile-container">
+  <h3 class="profile-name"><%= @user.name %><%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+  
+  <% if @user.id == current_user.id %>
+    <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
+  <% end %>
+
+</div>
+
+<% @sleeps.each do |sleep| %>
+<div>
+  <%= link_to sleep_path(sleep.id) do %>
+
+  <%= attachment_image_tag sleep, :image %>
+  <% end %>
+  <p>投稿ユーザー画像：<%= attachment_image_tag post_image.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></p>
+  <p>就寝時刻：<%= sleep.bedtime %></p>
+  <p>この日の眠りメモ：<%= sleep.opinion %></p>
+  <p>ユーザーネーム：<%= sleep.user.name %></p>
+  <p><%= link_to "#{sleep.post_comments.count}コメント", sleep_path(sleep.id) %></p>
+</div>
+<% end %>
+<%= paginate @sleeps %>
