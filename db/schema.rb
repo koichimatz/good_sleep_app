@@ -16,6 +16,10 @@ ActiveRecord::Schema.define(version: 2021_08_22_012057) do
     t.string "title"
     t.text "opinion"
     t.integer "user_id"
+    t.integer "tag_id"
+    t.datetime "bedtime"
+    t.datetime "waketime"
+    t.string "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

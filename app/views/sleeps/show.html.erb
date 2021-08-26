@@ -1,0 +1,10 @@
+<div class="sleep-body">
+  <%= attachment_image_tag @sleep, :image %>
+  <p>睡眠タイトル：<%= @sleep.title %></p>
+  <p>説明：<%= @sleep.opinion %></p>
+  <p>ユーザーネーム：<%= @sleep.user.name %></p>
+  <p>投稿日時：<%= @sleep.created_at.strftime('%Y/%m/%d') %></p>
+  <% if @sleep.user == current_user %>
+    <%= link_to "削除", sleep_path(@sleep), method: :delete %>
+  <% end %>
+</div>

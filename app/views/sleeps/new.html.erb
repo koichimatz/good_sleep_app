@@ -1,0 +1,14 @@
+<h1>睡眠ログ投稿フォーム</h1>
+<%= form_with model: @sleep, local:true do |f| %>
+  <h4>画像</h4>
+  <%= f.attachment_field :image %>
+  <h4>睡眠タイトル</h4>
+  <%= f.text_field :title %>
+    <r>就寝時刻</r>
+    <%= f.text_field :bedtime %>
+    <r>起床時刻</r>
+    <%= f.text_field :waketime %>
+  <h4>説明</h4>
+  <%= f.text_area :opinion %>
+  <%= f.submit '投稿' %>
+<% end %>
