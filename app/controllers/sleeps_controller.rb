@@ -7,9 +7,12 @@ class SleepsController < ApplicationController
   def create
     @sleep = Sleep.new(sleep_params)
     @sleep.user_id = current_user.id
-    @sleep.save
-    redirect_to sleeps_path
-    
+    if @sleep.save
+      redirect_to sleeps_path
+    else
+      render :new
+    end
+      
   end
 
   def index
@@ -32,7 +35,7 @@ class SleepsController < ApplicationController
 private
   
   def sleep_params
-    params.require(:sleep).permit(:image, :date, :opinion)
+    params.require(:sleep).permit(:image, :date, :opinion, :title, :bedtime, :waketime)
   end
   
 end

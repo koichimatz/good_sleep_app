@@ -1,0 +1,27 @@
+<div class="card-list-container py-5">
+  <% sleeps.each do |sleep| %>
+  <div class="card w-50 mx-auto mt-4 shadow-lg">
+    <%= link_to sleep_path(sleep.id) do %>
+      <%= attachment_image_tag sleep, :image, class:"card-img-top"; %>
+    <% end %>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-2">
+          <%= attachment_image_tag sleep.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg", class:"mt-3 rounded-circle"; %>
+        </div>
+        <div class="col-10">
+          <p class="card-title">
+            <%= link_to(sleep_path(sleep.id), class:"text-dark") do %>
+              <strong><i class="far fa-flag"></i><span> <%= sleep.title %></span></strong>
+            <% end %>
+          </p>
+          <p class="card-text">説明：<%= sleep.opinion %></p>
+          <span><i class="fas fa-user"></i> By <%= sleep.user.name %> ｜ </span>
+          <span><%= link_to "#{sleep.post_comments.count} コメント", sleep_path(sleep.id), class:"text-dark" %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <%= paginate sleeps %>
+</div>

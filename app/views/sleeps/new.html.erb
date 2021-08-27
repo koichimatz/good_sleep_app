@@ -1,14 +1,27 @@
-<h1>睡眠ログ投稿フォーム</h1>
-<%= form_with model: @sleep, local:true do |f| %>
-  <h4>画像</h4>
-  <%= f.attachment_field :image %>
-  <h4>睡眠タイトル</h4>
-  <%= f.text_field :title %>
-    <r>就寝時刻</r>
-    <%= f.text_field :bedtime %>
-    <r>起床時刻</r>
-    <%= f.text_field :waketime %>
-  <h4>説明</h4>
-  <%= f.text_area :opinion %>
-  <%= f.submit '投稿' %>
-<% end %>
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
+      <h5 class="text-dark bg-light p-4 mb-0">睡眠ログ投稿フォーム</h5>
+      <div class="form-body p-4">
+        <% if @sleep.errors.any? %>
+          <%= @sleep.errors.count %>件のエラーが発生しました
+          <% @sleep.errors.full_messages.each do |message| %>
+            <%= message %>
+          <% end %>
+        <% end %>
+        <%= form_with model: @sleep, local:true do |f| %>
+          <%= f.attachment_field :image, class: "w-100" %>
+          <div class="input-group mb-3 mt-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text" aria-hidden="true"><i class="fas fa-building"></i></span>
+            </div>
+            <%= f.text_field :title, class:"form-control", placeholder:"Sleep Title" %>
+          </div>
+          <%= f.text_area :opinion, class:"form-control", rows:"3", placeholder:"Coment here" %>
+          <hr>
+          <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

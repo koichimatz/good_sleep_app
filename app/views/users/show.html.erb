@@ -6,18 +6,4 @@
   <% end %>
 
 </div>
-
-<% @sleeps.each do |sleep| %>
-<div>
-  <%= link_to sleep_path(sleep.id) do %>
-
-  <%= attachment_image_tag sleep, :image %>
-  <% end %>
-  <p>投稿ユーザー画像：<%= attachment_image_tag post_image.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></p>
-  <p>就寝時刻：<%= sleep.bedtime %></p>
-  <p>この日の眠りメモ：<%= sleep.opinion %></p>
-  <p>ユーザーネーム：<%= sleep.user.name %></p>
-  <p><%= link_to "#{sleep.post_comments.count}コメント", sleep_path(sleep.id) %></p>
-</div>
-<% end %>
-<%= paginate @sleeps %>
+<%= render 'sleeps/list', sleeps: @sleeps %>
