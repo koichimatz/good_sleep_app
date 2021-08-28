@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   end
 
   def index
+    @users = User.all
+    @sleep = Sleep.new
   end
 
   def edit
