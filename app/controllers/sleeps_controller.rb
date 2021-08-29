@@ -29,7 +29,7 @@ class SleepsController < ApplicationController
   def destroy
     @sleep = Sleep.find(params[:id])
     @sleep.destroy
-    redirect_to sleep_path
+    redirect_to sleeps_path
   end
   
 private
