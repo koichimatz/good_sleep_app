@@ -1,5 +1,5 @@
 class SleepsController < ApplicationController
-  
+
   def new
     @sleep =Sleep.new
   end
@@ -12,18 +12,18 @@ class SleepsController < ApplicationController
     else
       render :new
     end
-      
+
   end
 
   def index
     @sleeps = Sleep.page(params[:page]).reverse_order
-    
+
   end
 
   def show
     @sleep = Sleep.find(params[:id])
     @post_comment = PostComment.new
-    
+    # binding.irb
   end
 
   def destroy
@@ -31,11 +31,11 @@ class SleepsController < ApplicationController
     @sleep.destroy
     redirect_to sleeps_path
   end
-  
+
 private
-  
+
   def sleep_params
     params.require(:sleep).permit(:image, :date, :opinion, :title, :bedtime, :waketime)
   end
-  
+
 end
