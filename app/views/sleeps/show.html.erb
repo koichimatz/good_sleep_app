@@ -1,30 +1,43 @@
-<div class="sleep-body">
-  <%= attachment_image_tag @sleep, :image %>
-  <p>睡眠タイトル：<%= @sleep.title %></p>
-  <p>説明：<%= @sleep.opinion %></p>
-  <p>ユーザーネーム：<%= @sleep.user.name %></p>
-  <p>投稿日時：<%= @sleep.created_at.strftime('%Y/%m/%d') %></p>
-  <% if @sleep.user == current_user %>
-    <%= link_to "削除", sleep_path(@sleep), method: :delete %>
-  <% end %>
-   <% if @sleep.favorited_by?(current_user) %>
-    <p>
-      <%= link_to sleep_favorites_path(@sleep), method: :delete do %>
-        ♥<%= @sleep.favorites.count %> いいね
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to sleep_favorites_path(@sleep), method: :post do %>
-        ♡<%= @sleep.favorites.count %> いいね
-      <% end %>
-    </p>
-  <% end %>
-
+<div class="card w-50 mx-auto mt-4 shadow-lg">
+  <div>
+     <div class="card-body">
+             <%= attachment_image_tag @sleep, :image %>
+      <div class="row"><div class="col-2">
+          <%= attachment_image_tag @sleep.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg", class:"mt-3 rounded-circle"; %>
+       </div>
+      <div class="col-10">
+          <p class="card-title">
+          <p class="card-text">
+             <strong><i class="far fa-flag"></i><span> <%= @sleep.title %></span></strong>
+          <p>ユーザーネーム：<%= @sleep.user.name %></p>
+          <a >投稿日時：<%= @sleep.created_at.strftime('%Y/%m/%d') %></a>
+          <% if @sleep.user == current_user %>
+            <%= link_to "削除", sleep_path(@sleep), method: :delete %>
+          <% end %>
+           <% if @sleep.favorited_by?(current_user) %>
+            <a class="card-text">
+              <%= link_to sleep_favorites_path(@sleep), method: :delete do %>
+                ♥<%= @sleep.favorites.count %> いいね
+              <% end %>
+            </a>
+            <% else %>
+            <p class="card-text">
+              <%= link_to sleep_favorites_path(@sleep), method: :post do %>
+                ♡<%= @sleep.favorites.count %> いいね
+              <% end %>
+            </p>
+          <% end %>
+      </div>
+    </div>
+  </div>
+  </div>
 </div>
 
-<div class="comments">
-<p>コメント件数：<%= @sleep.post_comments.count %></p>
+<!--<div class="comments">-->
+<div class="card-list-container py-5">
+<div class="card w-50 mx-auto mt-4 shadow-lg">
+  <div class="comments card-text">
+<h5 class="mt-3">コメント件数：<%= @sleep.post_comments.count %></h5>
 <% @sleep.post_comments.each do |post_comment| %>
   <p><%= attachment_image_tag post_comment.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></p>
   <%= post_comment.user.name %>
@@ -36,10 +49,15 @@
   <% end %>
 
 <% end %>
+  <div class="new-comment">
+  <%= form_with(model:[@sleep, @post_comment], local: true) do |f| %>
+    <!--< %= f.text_area :comment, rows:'5'class=,placeholder: "コメントをここに" %>-->
+    <textarea rows="5" class="form-control" placeholder="コメントをここに" name="post_comment[comment]" id="post_comment_comment" spellcheck="false"></textarea>
+    <%= f.submit "送信する" %>
+  <% end %>
 </div>
-<div class="new-comment">
-<%= form_with(model:[@sleep, @post_comment], local: true) do |f| %>
-  <%= f.text_area :comment, rows:'5',placeholder: "コメントをここに" %>
-  <%= f.submit "送信する" %>
-<% end %>
 </div>
+</div>
+</div>
+<!--<img class="attachment user profile_image bd-placeholder-img align-self-center mx-3 fallback" src="/assets/no_image-c730521….jpg" width="60" height="60">-->
+<!--<div class="media-body ml-4 p-3">-->
